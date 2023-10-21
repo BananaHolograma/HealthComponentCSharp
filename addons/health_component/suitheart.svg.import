@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sc3usil63v3u"
-path="res://.godot/imported/SuitHearts.svg-4733ca20721aae16a21adf8ffd32e624.ctex"
+uid="uid://nppv0ja2y7kv"
+path="res://.godot/imported/suitheart.svg-09ae234303f8296dd5e510f3f037ee96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/HealthComponent/SuitHearts.svg"
-dest_files=["res://.godot/imported/SuitHearts.svg-4733ca20721aae16a21adf8ffd32e624.ctex"]
+source_file="res://addons/health_component/suitheart.svg"
+dest_files=["res://.godot/imported/suitheart.svg-09ae234303f8296dd5e510f3f037ee96.ctex"]
 
 [params]
 

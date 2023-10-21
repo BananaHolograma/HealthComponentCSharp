@@ -1,6 +1,6 @@
 <p align="center">
 	<img width="256px" src="https://github.com/GodotParadise/HealthComponentCSharp/blob/main/icon.jpg" alt="GodotParadiseHealthComponentCSharp logo" />
-	<h1 align="center">Godot Paradise HealthComponentCSharp</h1>
+	<h1 align="center">Godot Paradise HealthComponent C#</h1>
 	
 [![LastCommit](https://img.shields.io/github/last-commit/GodotParadise/HealthComponentCSharp?cacheSeconds=600)](https://github.com/GodotParadise/HealthComponentCSharp/commits)
 [![Stars](https://img.shields.io/github/stars/godotparadise/HealthComponentCSharp)](https://github.com/GodotParadise/HealthComponentCSharp/stargazers)

@@ -11,12 +11,9 @@
 */
 
 using Godot;
-using System;
 using System.Collections.Generic;
 
-namespace HealthComponent;
-
-public partial class GodotParadiseHealthComponent : Node
+public partial class HealthComponent : Node
 {
     public enum TYPES
     {
