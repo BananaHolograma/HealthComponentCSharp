@@ -131,15 +131,27 @@ public partial class HealthComponent : Node
 
         CreateHealthRegenTimer(HealthRegenTickTime);
 
-        if (CurrentHealth >= MaxHealth && HealthRegenTimer.TimeLeft > 0 || HealthRegen <= 0)
+        if (HealthRegenTimer is not null)
         {
-            HealthRegenTimer.Stop();
-            return;
+            if (CurrentHealth >= MaxHealth && (HealthRegenTimer.TimeLeft > 0 || HealthRegen <= 0))
+            {
+                HealthRegenTimer.Stop();
+                return;
+            }
         }
 
-        if (HealthRegenTimer.IsStopped() && HealthRegen > 0)
+        if (HealthRegen > 0)
         {
-            HealthRegenTimer.Start();
+            if (HealthRegenTickTime != HealthRegenTimer.WaitTime)
+            {
+                HealthRegenTimer.Stop();
+                HealthRegenTimer.WaitTime = HealthRegenTickTime;
+            }
+
+            if (HealthRegenTimer.TimeLeft == 0 || HealthRegenTimer.IsStopped())
+            {
+                HealthRegenTimer.Start();
+            }
         }
     }
 
