@@ -1,12 +1,12 @@
 <p align="center">
-	<img width="256px" src="https://github.com/GodotParadise/[PLUGIN]/blob/main/icon.jpg" alt="GodotParadise[PLUGIN] logo" />
-	<h1 align="center">Godot Paradise [PLUGIN]</h1>
+	<img width="256px" src="https://github.com/GodotParadise/HealthComponentCSharp/blob/main/icon.jpg" alt="GodotParadiseHealthComponentCSharp logo" />
+	<h1 align="center">Godot Paradise HealthComponentCSharp</h1>
 	
-[![LastCommit](https://img.shields.io/github/last-commit/GodotParadise/[PLUGIN]?cacheSeconds=600)](https://github.com/GodotParadise/[PLUGIN]/commits)
-[![Stars](https://img.shields.io/github/stars/godotparadise/[PLUGIN])](https://github.com/GodotParadise/[PLUGIN]/stargazers)
-[![Total downloads](https://img.shields.io/github/downloads/GodotParadise/[PLUGIN]/total.svg?label=Downloads&logo=github&cacheSeconds=600)](https://github.com/GodotParadise/[PLUGIN]/releases)
-[![License](https://img.shields.io/github/license/GodotParadise/[PLUGIN]?cacheSeconds=2592000)](https://github.com/GodotParadise/[PLUGIN]/blob/main/LICENSE.md)
-[![Wiki](https://img.shields.io/badge/Read-wiki-cc5490.svg?logo=github)](https://github.com/GodotParadise/[PLUGIN]/wiki)
+[![LastCommit](https://img.shields.io/github/last-commit/GodotParadise/HealthComponentCSharp?cacheSeconds=600)](https://github.com/GodotParadise/HealthComponentCSharp/commits)
+[![Stars](https://img.shields.io/github/stars/godotparadise/HealthComponentCSharp)](https://github.com/GodotParadise/HealthComponentCSharp/stargazers)
+[![Total downloads](https://img.shields.io/github/downloads/GodotParadise/HealthComponentCSharp/total.svg?label=Downloads&logo=github&cacheSeconds=600)](https://github.com/GodotParadise/HealthComponentCSharp/releases)
+[![License](https://img.shields.io/github/license/GodotParadise/HealthComponentCSharp?cacheSeconds=2592000)](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/LICENSE.md)
+[![Wiki](https://img.shields.io/badge/Read-wiki-cc5490.svg?logo=github)](https://github.com/GodotParadise/HealthComponentCSharp/wiki)
 </p>
 
 - - -
@@ -22,18 +22,18 @@ You can download this plugin from the official [Godot asset library](https://god
 To manually install the plugin, create an **"addons"** folder at the root of your Godot project and then download the contents from the **"addons"** folder of this repository
 
 # 📋Wiki
-Learn how to use this component on detail on the [wiki](https://github.com/GodotParadise/[PLUGIN]/wiki) section
+Learn how to use this component on detail on the [wiki](https://github.com/GodotParadise/HealthComponentCSharp/wiki) section
 
 # You are welcome to
-- [Give feedback](https://github.com/GodotParadise/HealthComponent/pulls)
-- [Suggest improvements](https://github.com/GodotParadise/HealthComponent/issues/new?assignees=BananaHolograma&labels=enhancement&template=feature_request.md&title=)
-- [Bug report](https://github.com/GodotParadise/HealthComponent/issues/new?assignees=BananaHolograma&labels=bug%2C+task&template=bug_report.md&title=)
+- [Give feedback](https://github.com/GodotParadise/HealthComponentCSharp/pulls)
+- [Suggest improvements](https://github.com/GodotParadise/HealthComponentCSharp/issues/new?assignees=BananaHolograma&labels=enhancement&template=feature_request.md&title=)
+- [Bug report](https://github.com/GodotParadise/HealthComponentCSharp/issues/new?assignees=BananaHolograma&labels=bug%2C+task&template=bug_report.md&title=)
 
 - - -
 # Contribution guidelines
 **Thank you for your interest in Godot Paradise!**
 
-To ensure a smooth and collaborative contribution process, please review our [contribution guidelines](https://github.com/GodotParadise/[PLUGIN]/blob/master/CONTRIBUTING.md) before getting started. These guidelines outline the standards and expectations we uphold in this project.
+To ensure a smooth and collaborative contribution process, please review our [contribution guidelines](https://github.com/GodotParadise/HealthComponentCSharp/blob/master/CONTRIBUTING.md) before getting started. These guidelines outline the standards and expectations we uphold in this project.
 
 **Code of Conduct:** We strictly adhere to the [Godot code of conduct](https://godotengine.org/code-of-conduct/) in this project. As a contributor, it is important to respect and follow this code to maintain a positive and inclusive community.
 
