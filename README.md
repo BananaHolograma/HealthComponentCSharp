@@ -104,12 +104,12 @@ It's worth noting that the component is autonomously connected to its own `Died`
 If the `IsInvulnerable` variable is set to true, any incoming damage, regardless of its magnitude, will be disregarded. Nevertheless, the standard signal broadcasting will persist as expected.
 
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.Damage(10)
 _healthComponent.Damage(99)
@@ -123,12 +123,12 @@ The functionality mirrors that of the damage function, but in this instance, hea
 
 Following each execution of the health function, a `HealthChanged` signal is emitted.
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent_.Health(25)
 // Parameter is treated as absolute value:
@@ -138,12 +138,12 @@ _healthComponent.Health(-50) // Is translated as 50 inside the function
 By default, health regeneration occurs every second. When the health component invokes the `Damage()` function, regeneration is activated until the maximum health is reached, at which point it deactivates.
 You have the flexibility to dynamically adjust the rate of regeneration per second using the `EnableHealthRegen` function. Alternatively, you can set it to zero to disable health regeneration altogether:
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.EnableHealthRegen(10)
 # or disable it
@@ -152,12 +152,12 @@ _healthComponent.EnableHealthRegen(0)
 # Invulnerability
 You have the ability to toggle invulnerability on or off through the `EnableInvulnerability` function. By providing the enable parameter *(a boolean)*, you can specify whether invulnerability is activated or not. Additionally, you can set a time duration *(in seconds)* during which the entity will be invulnerable. Once the specified time limit is reached, invulnerability will be deactivated:
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.EnableInvulnerability(true, 2.5)
 # You can deactivating it manually with
@@ -169,12 +169,12 @@ This component solely emits a `Died` signal, offering you the flexibility to tai
 ## Death manual check
 Perform a manual check to ascertain if the entity has entered the death state. If you wish to manually determine this state, you can utilize the `CheckIsDeath` function. This function emits the `Died` signal if the current health reaches zero.
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 bool isDead = _healthComponent.CheckIsDeath()
 ```
@@ -202,30 +202,30 @@ This information can aid in accurately representing the health status and overfl
 To achieve this mechanic you can simple add multiple health components as childs on the target node and create a basic chain responsibility logic using the died signal. This is a very basic example and we recommend that you adapt it to your needs if they are a little more complex, we just want to give you a basic idea.
 
 ```csharp
-	private HealthComponent _healthComponent;
-	private List<HealthComponent> lifeBars;
+private HealthComponent _healthComponent;
+private List<HealthComponent> lifeBars;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-		_healthComponent2 = GetNode<HealthComponent>("GodotParadiseHealthComponent2");
-		_healthComponent3 = GetNode<HealthComponent>("GodotParadiseHealthComponent3");
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	_healthComponent2 = GetNode<HealthComponent>("GodotParadiseHealthComponent2");
+	_healthComponent3 = GetNode<HealthComponent>("GodotParadiseHealthComponent3");
 
-		lifeBars = new {_healthComponent, _healthComponent2, _healthComponent3}
-		lifeBars.Last().Died += OnLifeBarConsumed;
+	lifeBars = new {_healthComponent, _healthComponent2, _healthComponent3}
+	lifeBars.Last().Died += OnLifeBarConsumed;
 
+}
+
+private void OnLifeBarConsumed() {
+	HealthComponent lastLifeBar = lifeBars.Last();
+	lastLifeBar.Died -= OnLifeBarConsumed; // or queue free this node if you don't need the component anymore
+
+	lifeBars.Remove(lastLifeBar)
+
+	if (lastLifeBar.Count > 0) {
+		lifeBars.Last() += OnLifeBarConsumed;
 	}
-
-	private void OnLifeBarConsumed() {
-		HealthComponent lastLifeBar = lifeBars.Last();
-		lastLifeBar.Died -= OnLifeBarConsumed; // or queue free this node if you don't need the component anymore
-
-		lifeBars.Remove(lastLifeBar)
-
-		if (lastLifeBar.Count > 0) {
-			lifeBars.Last() += OnLifeBarConsumed;
-		}
-	}
+}
 
 ```
 

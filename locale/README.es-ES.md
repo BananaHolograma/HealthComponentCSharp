@@ -9,7 +9,7 @@
 [![Wiki](https://img.shields.io/badge/Read-wiki-cc5490.svg?logo=github)](https://github.com/GodotParadise/HealthComponent/wiki)
 </p>
 
-[![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/GodotParadise/HealthComponent/blob/main/locale/README.es-ES.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/GodotParadise/HealthComponent/blob/main/README.md)
 
 - - -
 Simule sin esfuerzo la salud y el daño de las entidades dentro de tu videojuego ahora en C#.
@@ -105,12 +105,12 @@ Cabe destacar que el componente se conecta de forma autónoma a su propia señal
 Si la variable `IsInvulnerable` es verdadera, cualquier daño recibido, independientemente de su magnitud, será ignorado. No obstante, se mantendrá la emisión de señales estándar.
 
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.Damage(10)
 _healthComponent.Damage(99)
@@ -124,12 +124,12 @@ Similar a la de daño pero esta vez, la cantidad es añadida como vida. Es impor
 
 En cada ejecución de la función, una señal `HealthChanged` es emitida.
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent_.Health(25)
 // Parameter es tratado como un valor absoluto
@@ -140,12 +140,12 @@ Cuando se invoca la función `Damage()`, la regeneración es activada *(si healt
 Tienes la flexilidad de ajustar la cantidad de curación el intervalo de tiempo en el que tiene que suceder. Dejar el valor de `HealthRegen` a cero si se quiere deshabilitar.
 
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.EnableHealthRegen(10)
 # o deshabilitalo
@@ -154,12 +154,12 @@ _healthComponent.EnableHealthRegen(0)
 # Invulnerabilidad
 Tienes la posibilidad de activar o desactivar la invulnerabilidad a través de la función `EnableInvulnerability`. Proporcionando el parámetro enable *(a boolean)*, puedes especificar si la invulnerabilidad está activada o no. Además, puedes establecer un tiempo de duración *(en segundos)* durante el cual la entidad será invulnerable. Una vez alcanzado el límite de tiempo especificado, la invulnerabilidad se desactivará:
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 _healthComponent.EnableInvulnerability(true, 2.5)
 # Puedes desactivarlo manualmente llamando a la funcion como:
@@ -171,12 +171,12 @@ El componente por si solo emite la señal `Died` ofreciendote la flexibilidad de
 ## Comprobacion manual de muerte
 Realiza una comprobación manual para determinar si la entidad ha entrado en estado de muerte. Si deseas determinar manualmente este estado, puedes utilizar la función `CheckIsDeath`. Esta función emite la `Died` si la salud actual llega a cero.
 ```csharp
-	private HealthComponent _healthComponent;
+private HealthComponent _healthComponent;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-	}
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+}
 
 bool isDead = _healthComponent.CheckIsDeath()
 ```
@@ -206,30 +206,30 @@ Esta información puede ayudar a representar con precisión el estado de salud y
 Para conseguir esta mecánica puedes simplemente añadir múltiples componentes de salud como hijos en el nodo destino y crear una lógica básica de responsabilidad en cadena usando la señal de `Died`. Este es un ejemplo muy básico y te recomendamos que lo adaptes a tus necesidades si son un poco más complejas, sólo queremos darte una idea básica.
 
 ```csharp
-	private HealthComponent _healthComponent;
-	private List<HealthComponent> lifeBars;
+private HealthComponent _healthComponent;
+private List<HealthComponent> lifeBars;
 
-	public override void _Ready()
-	{
-		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
-		_healthComponent2 = GetNode<HealthComponent>("GodotParadiseHealthComponent2");
-		_healthComponent3 = GetNode<HealthComponent>("GodotParadiseHealthComponent3");
+public override void _Ready()
+{
+	_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	_healthComponent2 = GetNode<HealthComponent>("GodotParadiseHealthComponent2");
+	_healthComponent3 = GetNode<HealthComponent>("GodotParadiseHealthComponent3");
 
-		lifeBars = new {_healthComponent, _healthComponent2, _healthComponent3}
-		lifeBars.Last().Died += OnLifeBarConsumed;
+	lifeBars = new {_healthComponent, _healthComponent2, _healthComponent3}
+	lifeBars.Last().Died += OnLifeBarConsumed;
 
+}
+
+private void OnLifeBarConsumed() {
+	HealthComponent lastLifeBar = lifeBars.Last();
+	lastLifeBar.Died -= OnLifeBarConsumed; // or queue free this node if you don't need the component anymore
+
+	lifeBars.Remove(lastLifeBar)
+
+	if (lastLifeBar.Count > 0) {
+		lifeBars.Last() += OnLifeBarConsumed;
 	}
-
-	private void OnLifeBarConsumed() {
-		HealthComponent lastLifeBar = lifeBars.Last();
-		lastLifeBar.Died -= OnLifeBarConsumed; // or queue free this node if you don't need the component anymore
-
-		lifeBars.Remove(lastLifeBar)
-
-		if (lastLifeBar.Count > 0) {
-			lifeBars.Last() += OnLifeBarConsumed;
-		}
-	}
+}
 
 ```
 
