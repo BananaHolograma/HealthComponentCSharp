@@ -22,7 +22,7 @@ public partial class HealthComponent : Node
         REGEN
     }
     [Signal]
-    public delegate void HealthChangedEventHandler(int amount, TYPES type);
+    public delegate void HealthChangedEventHandler(int amount, int type);
     [Signal]
     public delegate void InvulnerabilityChangedEventHandler(bool active);
     [Signal]
@@ -76,10 +76,14 @@ public partial class HealthComponent : Node
 
     public void Damage(int amount, TYPES type = TYPES.DAMAGE)
     {
+        if (IsInvulnerable)
+        {
+            amount = 0;
+        }
+
         amount = Mathf.Abs(amount);
         CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
-
-        EmitSignal(SignalName.HealthChanged, amount);
+        EmitSignal(SignalName.HealthChanged, amount, (int)type);
     }
 
     public bool CheckIsDead()
@@ -96,7 +100,7 @@ public partial class HealthComponent : Node
 
     public Dictionary<string, float> GetHealthPercent()
     {
-        float CurrentHealthPercentage = Mathf.Snapped(CurrentHealth / MaxHealth, 0.01f);
+        float CurrentHealthPercentage = Mathf.Snapped(CurrentHealth / (float)MaxHealth, 0.01f);
 
         return new Dictionary<string, float>{
             {"CurrentHealthPercentage", Mathf.Min(CurrentHealthPercentage, 1.0f)},
@@ -105,11 +109,16 @@ public partial class HealthComponent : Node
         };
     }
 
-    public void EnableInvulnerability(bool enable, float time = 1.0f)
+    public void EnableInvulnerability(bool enable, float? time = null)
     {
-        CreateInvulnerabilityTimer(time);
+        if (enable != IsInvulnerable)
+        {
+            EmitSignal(SignalName.InvulnerabilityChanged, enable);
+        }
+
+        CreateInvulnerabilityTimer(time ?? InvulnerabilityTime);
         IsInvulnerable = enable;
-        InvulnerabilityTime = time;
+        InvulnerabilityTime = time ?? InvulnerabilityTime;
 
         if (IsInvulnerable)
         {
@@ -124,10 +133,10 @@ public partial class HealthComponent : Node
         }
     }
 
-    public void EnableHealthRegen(int amount = 0, float time = 1.0f)
+    public void EnableHealthRegen(int? amount = null, float? time = null)
     {
-        HealthRegen = amount;
-        HealthRegenTickTime = time;
+        HealthRegen = amount ?? HealthRegen;
+        HealthRegenTickTime = time ?? HealthRegenTickTime;
 
         CreateHealthRegenTimer(HealthRegenTickTime);
 
@@ -160,7 +169,7 @@ public partial class HealthComponent : Node
 
         if (HealthRegenTimer is not null)
         {
-            if (HealthRegenTimer.WaitTime != time)
+            if (HealthRegenTimer.WaitTime != time && time > 0)
             {
                 HealthRegenTimer.Stop();
                 HealthRegenTimer.WaitTime = time;
@@ -171,7 +180,7 @@ public partial class HealthComponent : Node
             HealthRegenTimer = new()
             {
                 Name = "HealthRegenTimer",
-                WaitTime = time,
+                WaitTime = Mathf.Max(0.05, time),
                 OneShot = false,
                 Autostart = false
             };
@@ -185,7 +194,7 @@ public partial class HealthComponent : Node
     {
         if (InvulnerabilityTimer is not null)
         {
-            if (InvulnerabilityTimer.WaitTime != time)
+            if (InvulnerabilityTimer.WaitTime != time && time > 0)
             {
                 InvulnerabilityTimer.Stop();
                 InvulnerabilityTimer.WaitTime = time;
@@ -196,7 +205,7 @@ public partial class HealthComponent : Node
             InvulnerabilityTimer = new()
             {
                 Name = "InvulnerabilityTimer",
-                WaitTime = time,
+                WaitTime = Mathf.Max(0.05, time),
                 OneShot = true,
                 Autostart = false
             };
@@ -206,9 +215,9 @@ public partial class HealthComponent : Node
         }
     }
 
-    private void OnHealthChanged(int amount, TYPES type)
+    private void OnHealthChanged(int amount, int type)
     {
-        if (type == TYPES.DAMAGE)
+        if (type == (int)TYPES.DAMAGE)
         {
             EnableHealthRegen();
             Callable.From(CheckIsDead).CallDeferred();
