@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class HealthComponentExample : Node2D
 {
@@ -17,6 +18,9 @@ public partial class HealthComponentExample : Node2D
 	public override void _Ready()
 	{
 		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+
+		List<HealthComponent> bars = new();
+
 		_progressBar = GetNode<ProgressBar>("%ProgressBar");
 		_healthPoints = GetNode<Label>("%HealthPoints");
 		_reviveButton = GetNode<Button>("%ReviveButton");

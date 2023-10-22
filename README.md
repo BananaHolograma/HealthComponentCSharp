@@ -64,8 +64,8 @@ When this component becomes ready in the scene tree, a series of steps are carri
 2. Set up the health regeneration timer.
 3. Set up the invulnerability timer.
 4. If the health regeneration per second exceeds zero, activate health regeneration.
-5. Establish a connection to its own `health_changed` signal. Whenever the health changes, this signal is triggered. If health regeneration is enabled, it is also triggered, and if the current health reaches zero, a `died` signal is emitted.
-6. Establish a connection to its own `died` signal. Once this signal is emitted, the built-in timers within the component are halted.
+5. Establish a connection to its own `HealthChanged` signal. Whenever the health changes, this signal is triggered. If health regeneration is enabled, it is also triggered, and if the current health reaches zero, a `Died` signal is emitted.
+6. Establish a connection to its own `Died` signal. Once this signal is emitted, the built-in timers within the component are halted.
 
 # Examples
 We usually have an [examples](https://github.com/GodotParadise/HealthComponent/tree/main/examples) folder in our repositories to showcase how to use the plugin in a specific context.
@@ -85,90 +85,115 @@ In this case we have a available a simple progress bar that is monitoring the he
 - **Invulnerability time** *(how long the invulnerability will last, set this value as zero to be an indefinite period)*
 
 # Accessible normal variables
-- **max_health_overflow**
+- **MaxHealthOverflow**
 - **enum TYPES {HEALTH, REGEN, DAMAGE}**
-- **invulnerability_timer**
-- **health_regen_timer**
+- **InvulnerabilityTimer**
+- **HealthRegenTimer**
 
-The `max_health_overflow` is a computed variable that represents the sum of the maximum health and the applied health overflow percentage.
+The `MaxHealthOverflow` is a computed variable that represents the sum of the maximum health and the applied `HealthOverflowPercentage`.
 
 Example: `max_health of 120 and health overflow percentage of 15% = 138`
 You have a maximum normal health of 120 but can be surpassed a 15% so our new limit is 138. This can be useful to implement shield mechanics where you need to separate this type of health.
 
 # Functionality
 ## Taking damage
-To subtract a specific amount of health, you can effortlessly invoke the `damage()` function within the component. 
-This triggers the emission of a `health_changed` signal each time damage is inflicted. Moreover, the component constantly monitors if the current health has plummeted to zero, subsequently triggering a died signal.
-It's worth noting that the component is autonomously connected to its own `died` signal, concurrently ceasing the `health_regen_timer` and `invulnerability_timer`. 
+To subtract a specific amount of health, you can effortlessly invoke the `Damage()` function within the component. 
+This triggers the emission of a `HealthChanged` signal each time damage is inflicted. Moreover, the component constantly monitors if the current health has plummeted to zero, subsequently triggering a died signal.
+It's worth noting that the component is autonomously connected to its own `Died` signal, concurrently ceasing the `HealthRegenTimer` and `InvulnerabilityTimer`. 
 
-If the `is_invulnerable` variable is set to true, any incoming damage, regardless of its magnitude, will be disregarded. Nevertheless, the standard signal broadcasting will persist as expected.
+If the `IsInvulnerable` variable is set to true, any incoming damage, regardless of its magnitude, will be disregarded. Nevertheless, the standard signal broadcasting will persist as expected.
 
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
+```csharp
+	private HealthComponent _healthComponent;
 
-health_component.damage(10)
-health_component.damage(99)
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	}
 
-# Parameter is treated as absolute value
-health_component.damage(-50) # translate to 50 inside the function
+_healthComponent.Damage(10)
+_healthComponent.Damage(99)
+
+// Parameter is treated as absolute value
+_healthComponent.Damage(-50) // translate to 50 inside the function
 ```
 
 ## Healing
-The functionality mirrors that of the damage function, but in this instance, health is added to the component. It's important to note that the healing process can never surpass the predetermined `max_health_overflow`. 
+The functionality mirrors that of the damage function, but in this instance, health is added to the component. It's important to note that the healing process can never surpass the predetermined `MaxHealthOverflow`. 
 
-Following each execution of the health function, a `health_changed` signal is emitted.
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
+Following each execution of the health function, a `HealthChanged` signal is emitted.
+```csharp
+	private HealthComponent _healthComponent;
 
-health_component.health(25)
-# Parameter is treated as absolute value
-health_component.health(-50)
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	}
+
+_healthComponent_.Health(25)
+// Parameter is treated as absolute value:
+_healthComponent.Health(-50) // Is translated as 50 inside the function
 ```
 ## Health regeneration per second
-By default, health regeneration occurs every second. When the health component invokes the `damage()` function, regeneration is activated until the maximum health is reached, at which point it deactivates.
-You have the flexibility to dynamically adjust the rate of regeneration per second using the `enable_health_regen` function. Alternatively, you can set it to zero to disable health regeneration altogether:
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
+By default, health regeneration occurs every second. When the health component invokes the `Damage()` function, regeneration is activated until the maximum health is reached, at which point it deactivates.
+You have the flexibility to dynamically adjust the rate of regeneration per second using the `EnableHealthRegen` function. Alternatively, you can set it to zero to disable health regeneration altogether:
+```csharp
+	private HealthComponent _healthComponent;
 
-health_component.enable_health_regen(10)
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	}
+
+_healthComponent.EnableHealthRegen(10)
 # or disable it
-health_component.enable_health_regen(0)
+_healthComponent.EnableHealthRegen(0)
 ```
 # Invulnerability
-You have the ability to toggle invulnerability on or off through the `enable_invulnerability` function. By providing the enable parameter *(a boolean)*, you can specify whether invulnerability is activated or not. Additionally, you can set a time duration *(in seconds)* during which the entity will be invulnerable. Once the specified time limit is reached, invulnerability will be deactivated:
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
+You have the ability to toggle invulnerability on or off through the `EnableInvulnerability` function. By providing the enable parameter *(a boolean)*, you can specify whether invulnerability is activated or not. Additionally, you can set a time duration *(in seconds)* during which the entity will be invulnerable. Once the specified time limit is reached, invulnerability will be deactivated:
+```csharp
+	private HealthComponent _healthComponent;
 
-health_component.enable_invulnerability(true, 2.5)
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	}
+
+_healthComponent.EnableInvulnerability(true, 2.5)
 # You can deactivating it manually with
-health_component.enable_invulnerability(false)
+_healthComponent.EnableInvulnerability(false)
 ```
 # When health reachs zero
-This component solely emits a `died` signal, offering you the flexibility to tailor the behavior to your game's needs. By establishing a connection to this signal, you can trigger animations, function calls, collect statistics, and perform other relevant actions to customize the experience according to your game's requirements
+This component solely emits a `Died` signal, offering you the flexibility to tailor the behavior to your game's needs. By establishing a connection to this signal, you can trigger animations, function calls, collect statistics, and perform other relevant actions to customize the experience according to your game's requirements
 
 ## Death manual check
-Perform a manual check to ascertain if the entity has entered the death state. If you wish to manually determine this state, you can utilize the `check_is_death` function. This function emits the `died signal` if the current health reaches zero.
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
+Perform a manual check to ascertain if the entity has entered the death state. If you wish to manually determine this state, you can utilize the `CheckIsDeath` function. This function emits the `Died` signal if the current health reaches zero.
+```csharp
+	private HealthComponent _healthComponent;
 
-var is_dead: bool = health_component.check_is_death()
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+	}
+
+bool isDead = _healthComponent.CheckIsDeath()
 ```
 # Percentage of actual health
-If you intend to exhibit a health bar UI, you can access the health percentage format through the `get_health_percent()` function. This function returns a dictionary structured as follows:
-```py
+If you intend to exhibit a health bar UI, you can access the health percentage format through the `GetHealthPercent()` function. This function returns a dictionary structured as follows:
+```csharp
 # For instance, if 80% of the maximum health represents the current health:
 
 {
-   "current_health_percentage": 0.8,
-   "overflow_health_percentage": 0.0,
-   "overflow_health": 0
+   "CurrentHealthPercentage": 0.8,
+   "OverflowHealthPercentage": 0.0,
+   "OverflowHealth": 0
 }
 
 # Similarly, considering a maximum health of 100, a health overflow percentage of 20.0, and a current health of 120:
 
-{ "current_health_percentage": 1.0,
-   "overflow_health_percentage": 0.2,
-   "overflow_health": 20
+{ "CurrentHealthPercentage": 1.0,
+   "OverflowHealthPercentage": 0.2,
+   "OverflowHealth": 20
 }
 ```
 This information can aid in accurately representing the health status and overflow in a visual health bar.
@@ -176,38 +201,54 @@ This information can aid in accurately representing the health status and overfl
 # Multiple health bars
 To achieve this mechanic you can simple add multiple health components as childs on the target node and create a basic chain responsibility logic using the died signal. This is a very basic example and we recommend that you adapt it to your needs if they are a little more complex, we just want to give you a basic idea.
 
-```py
-@onready var health_component = $HealthComponent as GodotParadiseHealthComponent
-@onready var health_component2 = $HealthComponent2 as GodotParadiseHealthComponent
-@onready var health_component3 = $HealthComponent3 as GodotParadiseHealthComponent
+```csharp
+	private HealthComponent _healthComponent;
+	private List<HealthComponent> lifeBars;
 
-var life_bars := [health_component, health_component2, health_component3]
+	public override void _Ready()
+	{
+		_healthComponent = GetNode<HealthComponent>("GodotParadiseHealthComponent");
+		_healthComponent2 = GetNode<HealthComponent>("GodotParadiseHealthComponent2");
+		_healthComponent3 = GetNode<HealthComponent>("GodotParadiseHealthComponent3");
 
-func _ready():
-	life_bars.back().died.connect(on_life_bar_consumed)
-	
-func on_life_bar_consumed():
-	var last_life_bar = life_bars.pop_back()
+		lifeBars = new {_healthComponent, _healthComponent2, _healthComponent3}
+		lifeBars.Last().Died += OnLifeBarConsumed;
 
-	## Continue the logic...
+	}
+
+	private void OnLifeBarConsumed() {
+		HealthComponent lastLifeBar = lifeBars.Last();
+		lastLifeBar.Died -= OnLifeBarConsumed; // or queue free this node if you don't need the component anymore
+
+		lifeBars.Remove(lastLifeBar)
+
+		if (lastLifeBar.Count > 0) {
+			lifeBars.Last() += OnLifeBarConsumed;
+		}
+	}
+
 ```
 
 # Signals
-```py
+```csharp
 ### 
-# You can access the action type in the health_changed signal
+# You can access the action type in the HealthChanged signal
 # to determine what kind of action was taken and act accordingly to the flow of your game.
 ###
 
-enum TYPES {
+public enum TYPES
+{
 	DAMAGE,
 	HEALTH,
 	REGEN
 }
 
-signal health_changed(amount: int, type: TYPES)
-signal invulnerability_changed(active: bool)
-signal died
+[Signal]
+public delegate void HealthChangedEventHandler(int amount, int type);
+[Signal]
+public delegate void InvulnerabilityChangedEventHandler(bool active);
+[Signal]
+public delegate void DiedEventHandler();
 ```
 
 # You are welcome to
