@@ -2,14 +2,14 @@
 	<img width="256px" src="https://github.com/GodotParadise/HealthComponent/blob/main/icon.jpg" alt="GodotParadiseHealthComponent logo" />
 	<h1 align="center">Godot Paradise Health Component C#</h1>
 	
-[![LastCommit](https://img.shields.io/github/last-commit/GodotParadise/HealthComponent?cacheSeconds=600)](https://github.com/GodotParadise/HealthComponent/commits)
-[![Stars](https://img.shields.io/github/stars/godotparadise/HealthComponent)](https://github.com/GodotParadise/HealthComponent/stargazers)
-[![Total downloads](https://img.shields.io/github/downloads/GodotParadise/HealthComponent/total.svg?label=Downloads&logo=github&cacheSeconds=600)](https://github.com/GodotParadise/HealthComponent/releases)
-[![License](https://img.shields.io/github/license/GodotParadise/HealthComponent?cacheSeconds=2592000)](https://github.com/GodotParadise/HealthComponent/blob/main/LICENSE.md)
-[![Wiki](https://img.shields.io/badge/Read-wiki-cc5490.svg?logo=github)](https://github.com/GodotParadise/HealthComponent/wiki)
+[![LastCommit](https://img.shields.io/github/last-commit/GodotParadise/HealthComponentCSharp?cacheSeconds=600)](https://github.com/GodotParadise/HealthComponentCSharp/commits)
+[![Stars](https://img.shields.io/github/stars/godotparadise/HealthComponentCSharp)](https://github.com/GodotParadise/HealthComponentCSharp/stargazers)
+[![Total downloads](https://img.shields.io/github/downloads/GodotParadise/HealthComponentCSharp/total.svg?label=Downloads&logo=github&cacheSeconds=600)](https://github.com/GodotParadise/HealthComponentCSharp/releases)
+[![License](https://img.shields.io/github/license/GodotParadise/HealthComponentCSharp?cacheSeconds=2592000)](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/LICENSE.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=github)](https://github.com/godotparadise/HealthComponentCSharp/pulls)
 </p>
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/GodotParadise/HealthComponent/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/README.md)
 
 - - -
 Simule sin esfuerzo la salud y el daño de las entidades dentro de tu videojuego ahora en C#.
@@ -54,9 +54,9 @@ Para instalar manualmente el plugin, crea una carpeta **"addons"** en la raíz d
 # Como empezar
 Incorpora este componente como nodo hijo en el lugar donde quieras implementar la mecánica de vida y daño. Simplemente define los valores iniciales que deseas asignar a este componente.
 
-![health-component-add](https://github.com/GodotParadise/HealthComponent/blob/main/images/health-component-child-node_add.png)
+![health-component-add](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/images/health-component-child-node_add.png)
 - - -
-![health-component-added](https://github.com/GodotParadise/HealthComponent/blob/main/images/health-component-child-node.png)
+![health-component-added](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/images/health-component-child-node.png)
 
 # _Ready()
 Cuando este componente está listo en el árbol de escena, se llevan a cabo una serie de pasos:
@@ -69,11 +69,11 @@ Cuando este componente está listo en el árbol de escena, se llevan a cabo una 
 6. Establecer una conexión con su propia señal `Died` Una vez que se emite esta señal, se detienen los temporizadores incorporados en el componente.
 
 # Examples
-Tenemos una carpeta [ejemplos](https://github.com/GodotParadise/HealthComponent/tree/main/examples) en casi todos nuestros repositorios para mostrar como usar el plugin en un contexto determinado.
+Tenemos una carpeta [ejemplos](https://github.com/GodotParadise/HealthComponentCSharp/tree/main/examples) en casi todos nuestros repositorios para mostrar como usar el plugin en un contexto determinado.
 
 En este caso tenemos disponible una barra de progreso simple que esta siendo actualizada segun los cambios que sucedan en el componente de vida.
 
-![health-component-showcase](https://github.com/GodotParadise/HealthComponent/blob/main/images/health_component_showcase.gif)
+![health-component-showcase](https://github.com/GodotParadise/HealthComponentCSharp/blob/main/images/health_component_showcase.gif)
 
 
 # Parámetros exportados
@@ -255,24 +255,25 @@ public delegate void InvulnerabilityChangedEventHandler(bool active);
 public delegate void DiedEventHandler();
 ```
 
-# Eres bienvenido a
-- [Dar feedback](https://github.com/GodotParadise/HealthComponent/pulls)
-- [Sugerir mejoras](https://github.com/GodotParadise/HealthComponent/issues/new?assignees=BananaHolograma&labels=enhancement&template=feature_request.md&title=)
-- [Reportar bugs](https://github.com/GodotParadise/HealthComponent/issues/new?assignees=BananaHolograma&labels=bug%2C+task&template=bug_report.md&title=)
+
+# ✌️Eres bienvenido a
+- [Give feedback](https://github.com/GodotParadise/HealthComponentCSharp/pulls)
+- [Suggest improvements](https://github.com/GodotParadise/HealthComponentCSharp/issues/new?assignees=BananaHolograma&labels=enhancement&template=feature_request.md&title=)
+- [Bug report](https://github.com/GodotParadise/HealthComponentCSharp/issues/new?assignees=BananaHolograma&labels=bug%2C+task&template=bug_report.md&title=)
 
 GodotParadise esta disponible de forma gratuita.
 
 Si estas agradecido por lo que hacemos, por favor, considera hacer una donación. Desarrollar los plugins y contenidos de GodotParadise requiere una gran cantidad de tiempo y conocimiento, especialmente cuando se trata de Godot. Incluso 1€ es muy apreciado y demuestra que te importa. ¡Muchas Gracias!
 
 - - -
-# Normas de contribución
+# 🤝Normas de contribución
 **¡Gracias por tu interes en GodotParadise!**
 
-Para garantizar un proceso de contribución fluido y colaborativo, revise nuestras [directrices de contribución](https://github.com/godotparadise/[PLUGIN]/blob/main/CONTRIBUTING.md) antes de empezar. Estas directrices describen las normas y expectativas que mantenemos en este proyecto.
+Para garantizar un proceso de contribución fluido y colaborativo, revise nuestras [directrices de contribución](https://github.com/godotparadise/HealthComponentCSharp/blob/main/CONTRIBUTING.md) antes de empezar. Estas directrices describen las normas y expectativas que mantenemos en este proyecto.
 
-**Código de conducta:** En este proyecto nos adherimos estrictamente al [Código de conducta de Godot](https://godotengine.org/code-of-conduct/). Como colaborador, es importante respetar y seguir este código para mantener una comunidad positiva e inclusiva.
+**📓Código de conducta:** En este proyecto nos adherimos estrictamente al [Código de conducta de Godot](https://godotengine.org/code-of-conduct/). Como colaborador, es importante respetar y seguir este código para mantener una comunidad positiva e inclusiva.
 - - -
 
 
-# Contáctanos
-Si has construido un proyecto, demo, script o algun otro ejemplo usando este plugin haznoslo saber y podemos publicarlo en este repositorio para ayudarnos a mejorar y saber que lo que hacemos es útil.
+# 📇Contáctanos
+Si has construido un proyecto, demo, script o algun otro ejemplo usando nuestros plugins haznoslo saber y podemos publicarlo en este repositorio para ayudarnos a mejorar y saber que lo que hacemos es útil.
