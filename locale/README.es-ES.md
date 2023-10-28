@@ -16,11 +16,11 @@
 Simule sin esfuerzo la salud y el daño de las entidades dentro de tu videojuego ahora en C#.
 
 Este componente maneja todos los aspectos relacionados con la recepción de daños y la gestión de la salud en el nodo padre. Aunque normalmente se añade a un `CharacterBody2D`, no hay limitaciones que impidan su uso con un `StaticRigidBody2D`, lo que le permite imbuir vida a objetos como árboles u otros elementos del juego.
-
 - [Requerimientos](#requerimientos)
 - [✨Instalacion](#instalacion)
 	- [Automatica (Recomendada)](#automatica-recomendada)
 	- [Manual](#manual)
+	- [GDScript](#gdscript)
 - [Como empezar](#como-empezar)
 - [\_Ready()](#_ready)
 - [Examples](#examples)
@@ -36,9 +36,9 @@ Este componente maneja todos los aspectos relacionados con la recepción de dañ
 - [Porcentaje de la vida actual](#porcentaje-de-la-vida-actual)
 - [Multiple health bars](#multiple-health-bars)
 - [Señales](#señales)
-- [Eres bienvenido a](#eres-bienvenido-a)
-- [Normas de contribución](#normas-de-contribución)
-- [Contáctanos](#contáctanos)
+- [✌️Eres bienvenido a](#️eres-bienvenido-a)
+- [🤝Normas de contribución](#normas-de-contribución)
+- [📇Contáctanos](#contáctanos)
 
 
 
@@ -51,6 +51,8 @@ Este componente maneja todos los aspectos relacionados con la recepción de dañ
 Puedes descargar este plugin desde la [Godot asset library](https://godotengine.org/asset-library/asset/2039) oficial usando la pestaña AssetLib de tu editor Godot. Una vez instalado, estás listo para empezar
 ## Manual 
 Para instalar manualmente el plugin, crea una carpeta **"addons"** en la raíz de tu proyecto Godot y luego descarga el contenido de la carpeta **"addons"** de este repositorio
+## GDScript
+Este plugin también ha sido escrito en GDscript y lo puedes encontrar en [HealthComponent](https://github.com/GodotParadise/HealthComponent)
 
 # Como empezar
 Incorpora este componente como nodo hijo en el lugar donde quieras implementar la mecánica de vida y daño. Simplemente define los valores iniciales que deseas asignar a este componente.

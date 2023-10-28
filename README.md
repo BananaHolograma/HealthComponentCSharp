@@ -21,6 +21,7 @@ This component handles all aspects related to taking damage and managing health 
 - [✨Installation](#installation)
 	- [Automatic (Recommended)](#automatic-recommended)
 	- [Manual](#manual)
+	- [GDScript](#gdscript)
 - [Getting Started](#getting-started)
 	- [\_Ready()](#_ready)
 - [Examples](#examples)
@@ -36,9 +37,9 @@ This component handles all aspects related to taking damage and managing health 
 - [Percentage of actual health](#percentage-of-actual-health)
 - [Multiple health bars](#multiple-health-bars)
 - [Signals](#signals)
-- [You are welcome to](#you-are-welcome-to)
-- [Contribution guidelines](#contribution-guidelines)
-- [Contact us](#contact-us)
+- [✌️You are welcome to](#️you-are-welcome-to)
+- [🤝Contribution guidelines](#contribution-guidelines)
+- [📇Contact us](#contact-us)
 
 
 # Requirements
@@ -50,6 +51,8 @@ This component handles all aspects related to taking damage and managing health 
 You can download this plugin from the official [Godot asset library](https://godotengine.org/asset-library/asset/2039) using the AssetLib tab in your godot editor. Once installed, you're ready to get started
 ##  Manual 
 To manually install the plugin, create an **"addons"** folder at the root of your Godot project and then download the contents from the **"addons"** folder of this repository
+## GDScript
+This plugin has also been written in GDscript and you can find it on [HealthComponent](https://github.com/GodotParadise/HealthComponent)
 
 # Getting Started
 Incorporate this component as a child node in the location where you intend to implement life and damage mechanics. Simply define the initial values you wish to assign to this component.
